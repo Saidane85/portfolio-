@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ahmed Marzougui - DevOps Engineer Portfolio">
+    <meta name="author" content="Ahmed Marzougui">
+    <meta name="keywords" content="DevOps, Cloud, Kubernetes, AWS, Terraform, Portfolio">
+    <title>Ahmed Marzougui - DevOps Engineer</title>
+    <!-- Modern font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root{
+            --bg-1:#0B1021;
+            --bg-2:#111827;
+            --accent:#22D3EE;      /* cyan */
+            --accent-2:#7C3AED;    /* violet */
+            --text:#ffffff;
+            --muted:#b8c6db;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-1), var(--bg-2) 80%);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+        .glass {
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+        .divider {
+            border-top: 2px solid var(--accent-2);
+            margin: 2rem 0;
+        }
+        .navbar {
+            background: rgba(22,33,62,0.6)!important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: background .3s ease;
+        }
+        .navbar.scrolled { background: rgba(22,33,62,0.9)!important; }
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--accent)!important;
+        }
+        .nav-link { position: relative; }
+        .nav-link.active { position: relative; }
+        .nav-link.active:after { content:''; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--accent); border-radius:2px; }
+        .nav-link:hover {
+            color: var(--accent)!important;
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background: linear-gradient(120deg, var(--bg-1) 60%, var(--accent-2) 100%);
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .hero-sub { font-size: 1.5rem; color: #fff; margin-bottom: 2rem; }
+        .cta-btn {
+            background: var(--accent);
+            color: #0B1021;
+            font-weight: 700;
+            border-radius: 30px;
+            padding: 0.75rem 2rem;
+            border: none;
+            transition: background 0.3s;
+            box-shadow: 0 8px 24px rgba(34,211,238,0.18);
+        }
+        .cta-btn:hover {
+            background: var(--accent-2);
+            color: #fff;
+            box-shadow: 0 10px 28px rgba(124,58,237,0.25);
+        }
+        .about-img {
+            width: 120px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 3px solid var(--accent);
+        }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
+        .skill-card { min-width: 120px; max-width: 180px; background: rgba(255,255,255,0.10); border-radius: 12px; padding: 1rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s; }
+        .skill-card:hover { transform: scale(1.08); background: rgba(34,211,238,0.10); }
+        .skill-icon { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--accent-2); }
+        .progress { height: 8px; background: #16213e; border-radius: 4px; }
+        .progress-bar { background: linear-gradient(90deg, var(--accent-2), var(--accent)); }
+        .timeline { position: relative; padding: 2rem 0; }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+        .timeline-item { position: relative; margin-bottom: 2rem; width: 48%; }
+        .timeline-item.left { left: 0; text-align: right; }
+        .timeline-item.right { left: 52%; text-align: left; }
+        .timeline-item .content { display: inline-block; padding: 1.5rem; background: rgba(255,255,255,0.10); border-radius: 10px; backdrop-filter: blur(10px); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        .project-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .project-card { background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.12); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s; }
+        .project-card:hover { transform: scale(1.04); box-shadow:0 10px 30px rgba(124,58,237,0.18); }
+        .project-img { width: 100%; height: 180px; object-fit: cover; }
+        .project-title { font-size: 1.2rem; font-weight: 700; color: var(--accent); margin-top: 1rem; }
+        .education-list, .languages-list { list-style: none; padding: 0; }
+        .education-list li, .languages-list li { background: rgba(255,255,255,0.10); margin-bottom: 1rem; padding: 1rem; border-radius: 10px; }
+        .contact-form { max-width: 500px; margin: auto; }
+        .footer { background: #16213e; text-align: center; padding: 2rem 0 1rem 0; color: #fff; }
+        .footer a { color: var(--accent); margin: 0 10px; font-size: 1.5rem; }
+        @media (max-width: 900px) {
+            .timeline-item { width: 100%; left: 0!important; text-align: left!important; }
+        }
+        @keyframes fadein { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadein { opacity: 0; animation: fadein 1.2s forwards; }
+        .animate-fadein[style*='animation-delay:0.3s'] { animation-delay: 0.3s; }
+        .animate-fadein[style*='animation-delay:0.6s'] { animation-delay: 0.6s; }
+        /* Experience enhancements */
+        .xp-meta { color: var(--muted); font-size: 0.95rem; margin: .25rem 0 .75rem; }
+        .tech-badges { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem; }
+        .tech-badge { padding:.25rem .6rem; border-radius:999px; font-size:.8rem; color:var(--accent); background:rgba(34,211,238,0.12); border:1px solid rgba(34,211,238,0.35); }
+        /* Impact badges */
+        .impact-badges { display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 .5rem; }
+        .impact-badge { padding:.25rem .6rem; border-radius:8px; font-size:.8rem; background: rgba(124,58,237,0.18); border:1px solid rgba(124,58,237,0.35); color:#E0E7FF; }
+        /* Section reveal */
+        .section { opacity:0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+        .section.in-view { opacity:1; transform:none; }
+        /* Back to top */
+        #backToTop { position:fixed; right:20px; bottom:24px; z-index:999; display:none; border:none; border-radius:50%; width:44px; height:44px; background:var(--accent); color:#0B1021; box-shadow:0 10px 24px rgba(34,211,238,0.25); }
+        #backToTop:hover { background:#2bdcf0; }
+        /* Certifications */
+        .cert-grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+        .cert-card{display:flex;gap:1rem;align-items:flex-start;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.12);padding:1rem 1.1rem;border-radius:14px;transition:.25s;position:relative;}
+        .cert-icon{
+            width:54px;height:54px;display:flex;align-items:center;justify-content:center;
+            background:linear-gradient(135deg,var(--accent-2),var(--accent));
+            border-radius:14px;font-size:30px;color:#fff;
+            box-shadow:0 4px 14px rgba(0,0,0,.35);
+        }
+        .cert-title{font-weight:700;font-size:.95rem;color:var(--accent);}
+        .cert-issuer{font-size:.7rem;letter-spacing:.5px;font-weight:600;color:var(--muted);text-transform:uppercase;margin-bottom:.25rem;}
+        .cert-meta{font-size:.7rem;color:#cdd7e5;background:rgba(124,58,237,0.18);padding:.25rem .55rem;border-radius:6px;display:inline-block;margin-bottom:.4rem;border:1px solid rgba(124,58,237,0.35);}
+        .cert-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.25rem;}
+        .cert-tag{font-size:.65rem;padding:.25rem .55rem;border-radius:999px;background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.35);color:var(--accent);font-weight:500;letter-spacing:.5px;}
+        .cert-actions a{font-size:.65rem;}
+        /* Visitor badge */
+        .visit-badge{
+            display:inline-flex;align-items:center;gap:.4rem;
+            font-size:.75rem;font-weight:600;
+            padding:.35rem .75rem;
+            border:1px solid rgba(34,211,238,0.35);
+            background:rgba(34,211,238,0.12);
+            border-radius:999px;
+            color:var(--accent);
+        }
+        /* Workshops & Competitions */
+        .workshop-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+        .workshop-card{background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.12);border-radius:18px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.22);transition:.25s;}
+        .workshop-card:hover{transform:translateY(-6px);box-shadow:0 10px 32px rgba(124,58,237,0.28);}
+        /* Removed image usage; new icon header */
+        .workshop-icon{
+            display:flex;align-items:center;justify-content:center;
+            height:160px;
+            background:linear-gradient(135deg,var(--accent-2),var(--accent));
+            position:relative;
+        }
+        .workshop-icon i{
+            font-size:4rem;
+            color:#fff;
+            text-shadow:0 6px 18px rgba(0,0,0,0.35);
+        }
+        .workshop-body{padding:1.1rem 1.25rem 1.4rem;}
+        .workshop-title{font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:.35rem;}
+        .workshop-meta{font-size:.7rem;letter-spacing:.5px;font-weight:600;color:var(--muted);text-transform:uppercase;margin-bottom:.6rem;}
+        .workshop-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.6rem;}
+        .workshop-tag{font-size:.65rem;padding:.3rem .6rem;border-radius:999px;background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.35);color:var(--accent);font-weight:500;}
+        /* === Project Section Enhanced Visuals (no content change) === */
+        #projects .project-gallery { gap: 2.4rem; }
+        #projects .project-card {
+            background: radial-gradient(circle at 20% 15%, rgba(34,211,238,0.10), transparent 60%), rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 22px;
+            position: relative;
+            overflow: hidden;
+            transition: .55s cubic-bezier(.16,.8,.24,1);
+            box-shadow: 0 4px 24px -6px rgba(0,0,0,0.55);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        #projects .project-title { font-size:1.4rem; }
+        #projects .project-card:before { /* gradient border illusion */
+            content: '';
+            position: absolute; inset: 0; padding: 1px; border-radius: 22px; pointer-events: none;
+            background: linear-gradient(120deg,var(--accent-2),transparent 35%,var(--accent));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity: .55; transition: .6s;
+        }
+        #projects .project-card.reveal { opacity: 1; transform: none; }
+        #projects .project-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 46px -12px rgba(0,0,0,0.65), 0 10px 28px -6px rgba(124,58,237,0.35); }
+        #projects .project-card:hover:before { opacity: 1; filter: brightness(1.2); }
+        #projects .project-header { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        #projects .project-header:after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55)); mix-blend-mode: overlay; pointer-events:none; }
+        #projects .project-badge { backdrop-filter: blur(6px); font-weight:700; }
+        #projects .project-body { position: relative; }
+        #projects .project-body:after { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(124,58,237,.15), rgba(34,211,238,.10)); opacity:0; transition:.55s; z-index:-1; }
+        #projects .project-card:hover .project-body:after { opacity:1; }
+        #projects .project-tagline { font-weight:600; letter-spacing:.3px; }
+        /* Bullet refinement */
+        #projects .project-outcomes { list-style:none; padding-left:0; }
+        #projects .project-outcomes li { position:relative; padding-left:16px; font-size:.74rem; line-height:1.55; }
+        #projects .project-outcomes li:before { content:''; position:absolute; left:0; top:.55em; width:8px; height:8px; border-radius:50%; background:linear-gradient(135deg,var(--accent-2),var,--accent); box-shadow:0 0 0 3px rgba(255,255,255,0.06); }
+        /* Stats & tags polish */
+        #projects .project-stat { background: linear-gradient(135deg, rgba(124,58,237,0.35), rgba(34,211,238,0.35)); border:none; }
+        #projects .stack-tag { background:rgba(34,211,238,0.18); border-color:rgba(34,211,238,0.55); transition:.35s; }
+        #projects .stack-tag:hover { background:linear-gradient(135deg,var(--accent),var,--accent-2); color:#fff; box-shadow:0 0 0 3px rgba(255,255,255,0.05); }
+        /* Filter bar visual polish */
+        #projects .project-filters { background: rgba(255,255,255,0.05); padding:.85rem 1rem; border-radius:999px; backdrop-filter:blur(10px); box-shadow:0 4px 18px -6px rgba(0,0,0,.45); }
+        #projects .filter-btn { position:relative; overflow:hidden; }
+        #projects .filter-btn:after { content:''; position:absolute; left:50%; bottom:-6px; width:0; height:2px; background:linear-gradient(90deg,var(--accent),var,--accent-2); border-radius:2px; transition:.35s; }
+        #projects .filter-btn.active:after { left:0; width:100%; }
+        /* Responsive nuance */
+        @media (min-width:1400px){ #projects .project-card { min-height:480px; } }
+        @media (max-width:600px){ #projects .project-gallery { gap:1.8rem; } }
+        /* Highlight & collapse for project bullet lists */
+        #projects .proj-points{list-style:none;padding-left:0;margin:0 0 .6rem;}
+        #projects .proj-points li{position:relative;padding:.45rem .7rem .45rem 1.1rem;font-size:.72rem;line-height:1.5;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-bottom:.4rem;transition:.35s;}
+        #projects .proj-points li:before{content:"";position:absolute;left:.45rem;top:.7rem;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--accent-2),var,--accent);box-shadow:0 0 0 3px rgba(255,255,255,0.05);}
+        #projects .proj-points li.result{background:linear-gradient(135deg,rgba(34,211,238,0.20),rgba(124,58,237,0.18));border:1px solid rgba(34,211,238,0.45);box-shadow:0 0 0 1px rgba(124,58,237,0.25) inset;}
+        #projects .proj-points li.result:before{box-shadow:0 0 0 3px rgba(124,58,237,0.25);}
+        #projects .proj-points li:hover{background:rgba(34,211,238,0.14);}
+        #projects .proj-points.collapsed li:not(.goal){display:none;}
+        #projects .toggle-project{font-size:.65rem;letter-spacing:.5px;padding:.35rem .75rem;margin-bottom:.55rem;border-radius:8px;}
+        #projects .toggle-project:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+        /* Added badges & labels for refined project presentation */
+        #projects .kpi-badges{display:flex;flex-wrap:wrap;gap:.4rem;margin:.3rem 0 .6rem;}
+        #projects .kpi-badge{font-size:.55rem;letter-spacing:.5px;padding:.3rem .55rem;border-radius:6px;font-weight:600;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#0B1021;box-shadow:0 2px 6px rgba(0,0,0,.25);}
+        #projects .kpi-badge.alt{background:rgba(34,211,238,.22);color:var(--accent);}
+        #projects .kpi-badge.sec{background:rgba(124,58,237,.32);color:#fff;}
+        #projects .kpi-badge.rev{background:linear-gradient(135deg,var(--accent-2),var,--accent));color:#fff;}
+        #projects .proj-label{display:inline-block;min-width:78px;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:.25rem .5rem;border-radius:6px;margin-right:.45rem;background:rgba(34,211,238,.15);color:var(--accent);}
+        #projects .proj-points li.goal .proj-label{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#0B1021;}
+        #projects .proj-points li.result .proj-label{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;}
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Ahmed Marzougui</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                <li class="nav-item"><a class="nav-link" href="#languages">Languages</a></li>
+                <!-- Added Certifications nav link -->
+                <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
+                <!-- New Workshops nav link -->
+                <li class="nav-item"><a class="nav-link" href="#workshops">Workshops &amp; Competitions</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<section id="hero" class="hero" style="position:relative;overflow:hidden;">
+    <video autoplay muted loop playsinline poster="images/aws2.jpeg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.4);">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-technology-background-with-digital-cyber-security-data-28551-large.mp4" type="video/mp4">
+        <img src="images/aws2.jpeg" alt="Cloud DevOps Security" style="width:100%;height:100%;object-fit:cover;">
+    </video>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(22,33,62,0.55);z-index:1;"></div>
+    <div class="container" style="position:relative;z-index:2;">
+        <h1 class="hero-title animate-fadein">Ahmed Marzougui</h1>
+        <p class="hero-sub animate-fadein" style="animation-delay:0.3s;">DevOps Engineer — <span id="typewriter"></span></p>
+        <a href="#projects" class="cta-btn animate-fadein" style="animation-delay:0.6s;">View My Work <i class="fas fa-arrow-down"></i></a>
+    </div>
+</section>
+<div class="divider"></div>
+<section id="about" class="section">
+    <div class="container glass p-4" style="background: linear-gradient(120deg, var(--bg-1) 60%, var(--accent-2) 100%); box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);">
+        <div class="row align-items-center">
+            <div class="col-md-5 text-center">
+                <img src="images/cv.jpg" alt="Ahmed Marzougui" class="about-img" style="width:260px;max-width:100%;border-radius:24px;box-shadow:0 4px 24px rgba(34,211,238,0.2);margin-bottom:2rem;">
+            </div>
+            <div class="col-md-7">
+                <h2 class="section-title" style="font-size:3rem;letter-spacing:3px;color:var(--accent);text-shadow:0 2px 8px var(--accent-2);">About Me</h2>
+                <p style="font-size:1.5rem;font-weight:600;line-height:1.6;color:#fff;background:rgba(34,211,238,0.10);padding:1.5rem 2rem;border-radius:18px;box-shadow:0 2px 8px var(--accent-2);">
+                    I am a <span style="color:var(--accent);font-weight:700;">final-year engineering student</span> specializing in <span style="color:var(--accent-2);font-weight:700;">IT Infrastructure & Cloud Computing</span>. Passionate about <span style="color:var(--accent);font-weight:700;">Kubernetes, CI/CD, Terraform, and AWS</span>, I am seeking a <span style="color:var(--accent-2);font-weight:700;">6-month full-time graduation internship in Cloud/DevOps</span> starting December 2025.<br><br>Motivated, adaptable, and eager to contribute to <span style="color:var(--accent);font-weight:700;">cloud-native environments</span> and innovative teams.
+                </p>
+                <div class="text-center mt-4">
+                    <a href="CV.pdf" class="cta-btn" style="background:var(--accent-2);color:#fff;box-shadow:0 2px 8px var(--accent);font-size:1.2rem;padding:1rem 2.5rem;" download><i class="fas fa-download"></i> Download CV</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="divider"></div>
+<section id="skills" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Skills</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <h4 class="text-success">Programming</h4>
+                <div class="skills-list">
+                    <div class="skill-card"><i class="fab fa-python" title="Python" style="font-size:1.3em;margin-right:6px;"></i>Python</div>
+                    <div class="skill-card"><i class="fab fa-java" title="Java" style="font-size:1.3em;margin-right:6px;"></i>Java</div>
+                    <div class="skill-card"><i class="fab fa-js" title="JavaScript" style="font-size:1.3em;margin-right:6px;"></i>JavaScript</div>
+                    <div class="skill-card"><i class="fab fa-php" title="PHP" style="font-size:1.3em;margin-right:6px;"></i>PHP</div>
+                    <div class="skill-card"><i class="fas fa-code" title="C/C++" style="font-size:1.3em;margin-right:6px;"></i>C/C++</div>
+                    <div class="skill-card"><i class="fas fa-terminal" title="Shell Script" style="font-size:1.3em;margin-right:6px;"></i>Shell Script</div>
+                    <div class="skill-card"><i class="fab fa-golang" title="Go" style="font-size:1.3em;margin-right:6px;"></i>Go</div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4 class="text-success">Frameworks / Tools</h4>
+                <div class="skills-list">
+                    <div class="skill-card"><i class="fas fa-leaf" title="Spring Boot" style="font-size:1.3em;margin-right:6px;"></i>Spring Boot</div>
+                    <div class="skill-card"><i class="fab fa-angular" title="Angular" style="font-size:1.3em;margin-right:6px;"></i>Angular</div>
+                    <div class="skill-card"><i class="fab fa-symfony" title="Symfony" style="font-size:1.3em;margin-right:6px;"></i>Symfony</div>
+                    <div class="skill-card"><i class="fab fa-windows" title=".NET" style="font-size:1.3em;margin-right:6px;"></i>.NET</div>
+                    <div class="skill-card"><i class="fab fa-docker" title="Docker" style="font-size:1.3em;margin-right:6px;"></i>Docker</div>
+                    <div class="skill-card"><i class="fab fa-kubernetes" title="Kubernetes" style="font-size:1.3em;margin-right:6px;"></i>Kubernetes</div>
+                    <div class="skill-card"><i class="fab fa-jenkins" title="Jenkins" style="font-size:1.3em;margin-right:6px;"></i>Jenkins</div>
+                    <div class="skill-card"><i class="fas fa-database" title="MySQL" style="font-size:1.3em;margin-right:6px;"></i>MySQL</div>
+                    <div class="skill-card"><i class="fab fa-linux" title="Nginx" style="font-size:1.3em;margin-right:6px;"></i>Nginx</div>
+                    <div class="skill-card"><i class="fab fa-gitlab" title="GitLab" style="font-size:1.3em;margin-right:6px;"></i>GitLab</div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4 class="text-success">Virtualization / Systems</h4>
+                <div class="skills-list">
+                    <div class="skill-card"><i class="fas fa-server" title="QEMU/KVM" style="font-size:1.3em;margin-right:6px;"></i>QEMU/KVM</div>
+                    <div class="skill-card"><i class="fab fa-docker" title="OCI/Docker Images" style="font-size:1.3em;margin-right:6px;"></i>OCI/Docker Images</div>
+                    <div class="skill-card"><i class="fas fa-cubes" title="Microservices Architecture" style="font-size:1.3em;margin-right:6px;"></i>Microservices Architecture</div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4 class="text-success">Cloud / DevOps</h4>
+                <div class="skills-list">
+                    <div class="skill-card"><i class="fab fa-aws" title="AWS" style="font-size:1.3em;margin-right:6px;"></i>AWS</div>
+                    <div class="skill-card"><i class="fas fa-cloud" title="Terraform" style="font-size:1.3em;margin-right:6px;"></i>Terraform</div>
+                    <div class="skill-card"><i class="fas fa-cloud" title="OpenStack" style="font-size:1.3em;margin-right:6px;"></i>OpenStack</div>
+                    <div class="skill-card"><i class="fab fa-ansible" title="Ansible" style="font-size:1.3em;margin-right:6px;"></i>Ansible</div>
+                    <div class="skill-card"><i class="fas fa-chart-line" title="Grafana" style="font-size:1.3em;margin-right:6px;"></i>Grafana</div>
+                    <div class="skill-card"><i class="fab fa-gitlab" title="GitLab" style="font-size:1.3em;margin-right:6px;"></i>GitLab</div>
+                    <div class="skill-card"><i class="fab fa-redhat" title="OpenShift" style="font-size:1.3em;margin-right:6px;"></i>OpenShift</div>
+                    <div class="skill-card"><i class="fas fa-ship" title="Argo CD" style="font-size:1.3em;margin-right:6px;"></i>Argo CD</div>
+                    <div class="skill-card"><i class="fas fa-helmet-safety" title="Helm" style="font-size:1.3em;margin-right:6px;"></i>Helm</div>
+                    <div class="skill-card"><i class="fas fa-search" title="ELK Stack" style="font-size:1.3em;margin-right:6px;"></i>ELK Stack</div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-4">
+                <h4 class="text-success">Networking</h4>
+                <div class="skills-list">
+                    <div class="skill-card"><i class="fab fa-aws" title="AWS VPC" style="font-size:1.3em;margin-right:6px;"></i>AWS VPC</div>
+                    <div class="skill-card"><i class="fas fa-project-diagram" title="BGP (GNS3)" style="font-size:1.3em;margin-right:6px;"></i>BGP (GNS3)</div>
+                    <div class="skill-card"><i class="fas fa-network-wired" title="Juniper vSRX" style="font-size:1.3em;margin-right:6px;"></i>Juniper vSRX</div>
+                    <div class="skill-card"><i class="fas fa-shield-alt" title="Fortinet FortiGate" style="font-size:1.3em;margin-right:6px;"></i>Fortinet FortiGate</div>
+                    <div class="skill-card"><i class="fas fa-fire" title="Firewall" style="font-size:1.3em;margin-right:6px;"></i>Firewall</div>
+                    <div class="skill-card"><i class="fas fa-exchange-alt" title="NAT" style="font-size:1.3em;margin-right:6px;"></i>NAT</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="divider"></div>
+<section id="projects" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Projects</h2>
+        <div class="project-gallery">
+            <!-- Terraform VPC Automation (updated) -->
+            <div class="project-card">
+                <img src="images/terraform.png" class="project-img" alt="Scalable AWS VPC Infrastructure">
+                <div class="project-title">Scalable AWS VPC Infrastructure (Terraform)</div>
+                <div class="p-3">
+                    <p class="mb-2" style="font-size:.9rem;">Modular, policy‑driven IaC to spin up consistent, secure multi‑environment AWS networking in minutes.</p>
+                    <div class="d-flex flex-wrap gap-2 mb-2" style="font-size:.6rem;">
+                        <span class="badge bg-info text-dark" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));">≈70% Faster Provisioning</span>
+                        <span class="badge bg-secondary" style="background:rgba(34,211,238,0.25);color:var(--accent);">Idempotent Runs</span>
+                        <span class="badge bg-secondary" style="background:rgba(124,58,237,0.30);color:#fff;">Governed CIDR / Naming</span>
+                    </div>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Eliminate manual console builds and enforce repeatable, scalable network baselines (dev / stage / prod).</li>
+                        <li class="implementation"><strong>Architecture:</strong> Terraform modules: VPC, public/private subnets (2 AZ), route tables, IGW, NAT GW, security groups, bastion EC2, ALB, remote state (S3 + DynamoDB lock), input validation (CIDR & naming guards).</li>
+                        <li class="implementation"><strong>Process:</strong> Plan → gated review → apply; reusable variables & tags; environment promotion via isolated state backends.</li>
+                        <li class="result"><strong>Results:</strong> Full stack in ~4 min (prev ~13 min), zero unintended drifts on re‑apply, standardized segmentation ready for app & database tiers.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: Terraform • AWS VPC • Subnets • ALB • NAT • SG • Remote State • Validation</div>
+                    <a href="https://github.com/MarzouguiAhmed9/vpc-terraform-project" target="_blank" class="btn btn-outline-success btn-sm mt-2">GitHub</a>
+                    <a href="https://lnkd.in/eFg2cp4c" target="_blank" class="btn btn-outline-info btn-sm mt-2">Case Study</a>
+                </div>
+            </div>
+            <!-- Automated KVM Virtual Lab -->
+            <div class="project-card">
+                <img src="images/kvm.jpg" class="project-img" alt="Automated KVM Virtual Lab">
+                <div class="project-title">Automated KVM Virtual Lab</div>
+                <div class="p-3">
+                    <p class="mb-2">Local reproducible lab for rapid DevOps experimentation (clusters, CI/CD, networking).</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Reduce manual multi‑VM setup friction for testing pipelines & container stacks.</li>
+                        <li class="implementation"><strong>Implementation:</strong> Ansible playbooks orchestrating libvirt networks, cloud‑init userdata, SSH keys, package bootstrap & tagging.</li>
+                        <li class="result"><strong>Result:</strong> Environment build time dropped from “several hours” (manual) to < 10 min; teardown/recreate cycle encourages safer experimentation.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: Ansible • KVM/libvirt • Cloud-init • Linux Net • Automation</div>
+                    <a href="https://dev.to/ahmed_marzougui_4f08a0e78/building-a-virtual-cloud-lab-with-ansible-kvm-and-libvirt-48k8" target="_blank" class="btn btn-outline-info btn-sm mt-2">Dev.to Article</a>
+                    <a href="https://github.com/MarzouguiAhmed9/automated-kvm-virtual-lab" target="_blank" class="btn btn-outline-success btn-sm mt-2">GitHub</a>
+                </div>
+            </div>
+            <!-- AWS 3‑Tier Architecture -->
+            <div class="project-card">
+                <img src="images/aws2.jpeg" class="project-img" alt="AWS 3-Tier Architecture">
+                <div class="project-title">AWS 3‑Tier Architecture</div>
+                <div class="p-3">
+                    <p class="mb-2">Reference deployment pattern for a small stateless web/API workload with managed database.</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Provide segregated layers (web / app / data) with high availability.</li>
+                        <li class="implementation"><strong>Implementation:</strong> Public & private subnets, SG/NACL hardening, ALB + Auto Scaling, Aurora MySQL (Multi‑AZ) & CloudWatch alarms.</li>
+                        <li class="result"><strong>Result:</strong> Achieved zone failure resilience (simulated AZ shutdown) with uninterrupted app response; baseline latency stable under auto scale events.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: AWS VPC • EC2 • ALB • ASG • Aurora MySQL • IAM • CloudWatch</div>
+                    <a href="https://github.com/MarzouguiAhmed9/3-Tier-Architecture-On-AWS" target="_blank" class="btn btn-outline-success btn-sm mt-2">GitHub</a>
+                </div>
+            </div>
+            <!-- GitLab CI/CD Helm Deployments to EKS -->
+            <div class="project-card">
+                <img src="images/1.jpeg" class="project-img" alt="GitLab Helm CI/CD EKS Login Microservice">
+                <div class="project-title">GitLab Helm CI/CD for EKS Login Microservice</div>
+                <div class="p-3">
+                    <p class="mb-2">End‑to‑end automated delivery of a containerized login microservice to Amazon EKS using GitLab CI, Helm charts, and the GitLab Kubernetes Agent.</p>
+                    <div class="kpi-badges">
+                        <span class="kpi-badge">Automated</span>
+                        <span class="kpi-badge alt">Versioned Helm</span>
+                        <span class="kpi-badge sec">Secure Agent</span>
+                        <span class="kpi-badge rev">Rollback Ready</span>
+                    </div>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><span class="proj-label">Goal</span> Automate deployment of a microservice‑based login application on EKS to save time, reduce manual errors, and provide a reusable, scalable CI/CD workflow.</li>
+                        <li class="implementation"><span class="proj-label">Architecture</span> EKS cluster + GitLab Kubernetes Agent (secure manifest delivery); Docker image build & push to GitLab Container Registry; versioned Helm charts published to GitLab Helm repository.</li>
+                        <li class="implementation"><span class="proj-label">Pipeline</span> Stages: dynamic metadata extraction (version/env), image build & scan, chart package, Helm install/upgrade, optional manual cleanup stage enabling rollback/testing.</li>
+                        <li class="result"><span class="proj-label">Result</span> Fully automated, version‑controlled pipeline; reduced deployment errors & manual steps; scalable, secure workflow enabling faster delivery and rapid, safe rollbacks.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: GitLab CI • Helm • Amazon EKS • GitLab K8s Agent • Docker • Registry</div>
+                    <a href="https://lnkd.in/ewpXXBGW" target="_blank" class="btn btn-outline-info btn-sm mt-2">Medium Guide</a>
+                    <a href="https://lnkd.in/ebTAynSq" target="_blank" class="btn btn-outline-success btn-sm mt-2">GitLab Project</a>
+                </div>
+            </div>
+            <!-- Serverless Secure File Sharing Platform -->
+            <div class="project-card">
+                <img src="images/aws3.png" class="project-img" alt="Collaborative File Sharing Platform">
+                <div class="project-title">Serverless Secure File Sharing Platform</div>
+                <div class="p-3">
+                    <p class="mb-2">Low‑ops collaboration backend enforcing least‑privilege file access.</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Replace ad‑hoc email sharing with authenticated, auditable exchange.</li>
+                        <li class="implementation"><strong>Implementation:</strong> Cognito user pools + JWT → API Gateway + Lambda handlers performing policy checks; encrypted storage & WAF rules; structured CloudWatch logs.</li>
+                        <li class="result"><strong>Result:</strong> Consistent access auditing (per‑request identity + object key) and no public objects detected during review scans.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: React • Cognito • API Gateway • Lambda • EFS • KMS • WAF • CloudWatch</div>
+                    <a href="https://github.com/MarzouguiAhmed9/Collaborative-File-Sharing-Platform" target="_blank" class="btn btn-outline-success btn-sm mt-2">GitHub</a>
+                </div>
+            </div>
+            <!-- Hybrid OpenStack Private Cloud & AI Platform -->
+            <div class="project-card">
+                <img src="images/openstack1.jpeg" class="project-img" alt="OpenStack Private Cloud">
+                <div class="project-title">Hybrid OpenStack Private Cloud & AI Platform</div>
+                <div class="p-3">
+                    <p class="mb-2">Lab platform combining internal OpenStack resources with public cloud burst capability.</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Provide on‑prem style control for experimentation while enabling overflow to public cloud.</li>
+                        <li class="implementation"><strong>Implementation:</strong> Multi‑node OpenStack (Nova, Neutron, Cinder) + Kubernetes + Grafana dashboards (capacity) + selective AWS integration.</li>
+                        <li class="result"><strong>Result:</strong> Faster provisioning (VMs in minutes vs manual multi‑step installs) and actionable capacity trends for forecasting saturation.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: OpenStack • Ansible • Kubernetes • Docker • MySQL • AWS EC2/S3 • Grafana</div>
+                </div>
+            </div>
+            <!-- Spring Boot on AWS ECS Fargate -->
+            <div class="project-card">
+                <img src="images/aws.jpeg" class="project-img" alt="Spring Boot on AWS ECS Fargate">
+                <div class="project-title">Spring Boot on AWS ECS Fargate</div>
+                <div class="p-3">
+                    <p class="mb-2">Containerized Java service with managed compute & automated delivery.</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Remove EC2 maintenance and simplify zero‑downtime updates.</li>
+                        <li class="implementation"><strong>Implementation:</strong> GitHub → CodePipeline/Build → ECR → ECS Fargate service (health checks & versioned task defs).</li>
+                        <li class="result"><strong>Result:</strong> Rolling deployments succeeded without connection errors; scaling kept p95 latency within SLO under load.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: Spring Boot • Docker • ECS Fargate • ECR • CodePipeline • CodeBuild</div>
+                    <a href="https://github.com/MarzouguiAhmed9/spring-aws" target="_blank" class="btn btn-outline-success btn-sm mt-2">GitHub</a>
+                </div>
+            </div>
+            <!-- Node.js Kubernetes CI/CD Pipeline -->
+            <div class="project-card">
+                <img src="images/cicd.jpeg" class="project-img" alt="CI/CD Pipeline for Node.js on Kubernetes">
+                <div class="project-title">Node.js Kubernetes CI/CD Pipeline</div>
+                <div class="p-3">
+                    <p class="mb-2">Quality‑gated delivery chain with observability hooks.</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Introduce repeatable build/test/security checks before cluster deploy.</li>
+                        <li class="implementation"><strong>Implementation:</strong> Jenkins pipeline (lint, unit test, image build, scan, deploy) + Slack notifications & runtime metrics labeling.</li>
+                        <li class="result"><strong>Result:</strong> Earlier feedback reduced late failures; build → deploy traceability simplified incident analysis.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: Jenkins • Docker • Kubernetes • Node.js • Static Analysis • Slack API</div>
+                </div>
+            </div>
+            <!-- CI/CD Pipeline Optimization -->
+            <div class="project-card">
+                <img src="images/cicd2.jpeg" class="project-img" alt="CI/CD Pipeline Optimization">
+                <div class="project-title">CI/CD Pipeline Optimization</div>
+                <div class="p-3">
+                    <p class="mb-2">Refinement of an existing pipeline for speed and reliability.</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Shorten build time and cut manual interventions.</li>
+                        <li class="implementation"><strong>Implementation:</strong> Parallel stages, dependency caching, immutable artifact promotion & stage telemetry.</li>
+                        <li class="result"><strong>Result:</strong> Avg pipeline < 5 min (from ~11 min); manual approvals reduced ≈30% via automated gates.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: Jenkins • Ansible • Docker • GitHub • AWS EC2 • Monitoring</div>
+                </div>
+            </div>
+            <!-- DVC ML Pipeline Project -->
+            <div class="project-card">
+                <img src="images/mlops.png" class="project-img" alt="DVC ML Pipeline">
+                <div class="project-title">Reproducible Spam Detection ML Pipeline (DVC & MLOps)</div>
+                <div class="p-3">
+                    <p class="mb-2">End-to-end machine learning pipeline for spam detection, fully automated and version-controlled with DVC and MLOps best practices.</p>
+                    <div class="kpi-badges">
+                        <span class="kpi-badge">Reproducible</span>
+                        <span class="kpi-badge alt">Automated</span>
+                        <span class="kpi-badge sec">Versioned Data</span>
+                        <span class="kpi-badge rev">S3 Storage</span>
+                    </div>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><span class="proj-label">Goal</span> Build a robust, reproducible ML pipeline for spam detection with automated experiment tracking and deployment.</li>
+                        <li class="implementation"><span class="proj-label">Pipeline</span> Stages: data ingestion, preprocessing, feature engineering, model training, evaluation. All tracked and automated with DVC.</li>
+                        <li class="implementation"><span class="proj-label">Automation</span> dvc.yaml defines stages/dependencies; dvc repro runs only changed steps; dvc.lock/params.yaml ensure reproducibility and easy tuning.</li>
+                        <li class="result"><span class="proj-label">Result</span> No lost work, faster iteration, fully versioned experiments, and confident, collaborative deployment. Data and models stored on S3 for easy scaling.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: DVC • Python • MLOps • S3 • dvclive</div>
+                    <a href="https://lnkd.in/eP2FX-CP" target="_blank" class="btn btn-outline-success btn-sm mt-2">Github </a>
+                </div>
+            </div>
+            <!-- Service Health Checker API (Go) -->
+            <div class="project-card">
+                <img src="images/go.png" class="project-img" alt="Service Health Checker API">
+                <div class="project-title">Service Health Checker API</div>
+                <div class="p-3">
+                    <p class="mb-2" style="font-size:.9rem;">Lightweight Go service for automated health monitoring and metrics exposure.</p>
+                    <ul class="mb-2 proj-points collapsed">
+                        <li class="goal"><strong>Goal:</strong> Enable real-time monitoring of internal services and websites with minimal overhead.</li>
+                        <li class="implementation"><strong>Implementation:</strong> Periodic HTTP checks, JSON status endpoint, Prometheus metrics integration, and alert-ready Grafana dashboards.</li>
+                        <li class="result"><strong>Result:</strong> Instant visibility into service health, rapid incident detection, and seamless integration with existing observability stack.</li>
+                    </ul>
+                    <button class="btn btn-outline-info btn-sm toggle-project" data-state="collapsed">Read More</button>
+                    <div class="small" style="font-weight:600;color:var(--accent);">Stack: Go • HTTP • JSON • Prometheus • Grafana</div>
+                    <a href="https://github.com/MarzouguiAhmed9/SERVICE-HEALTH-CHECKER-Go" target="_blank" class="btn btn-outline-success btn-sm mt-2">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="divider"></div>
+<section id="experience" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="content d-flex align-items-center">
+                    <img src="images/ST2I.jpeg" alt="ST2I" style="width:110px;height:110px;object-fit:cover;border-radius:16px;margin-right:1.25rem;box-shadow:0 4px 16px rgba(0,0,0,0.18);">
+                    <div>
+                        <h5 style="color:var(--accent);font-weight:800;margin:0;">DevSecOps Intern — ST2I</h5>
+                        <div class="xp-meta">Tunisia • Jun 2025 – Sep 2025</div>
+                        <ul style="margin-bottom:.5rem;">
+                            <li>Migrated Spring Boot microservices to OpenShift with Helm, RBAC and environment parity (dev/stage/prod); deploy time −87% (45m → 6m), 99.3% rollout success.</li>
+                            <li>Implemented GitOps with Argo CD and trunk-based flow; lead time for change −72%, change fail rate −4× through protected pipelines.</li>
+                            <li>Hardened CI/CD (GitLab CI, Trivy, SonarQube): 95% critical vulns blocked pre-prod, −35% code smells, −28% image size.</li>
+                            <li>Operationalized observability (Prometheus, Grafana, alerting): 99.5% uptime SLO, MTTR 24m (−60%).</li>
+                        </ul>
+                        <div class="impact-badges">
+                            <span class="impact-badge"><i class="fas fa-bolt"></i> −87% deploy time</span>
+                            <span class="impact-badge"><i class="fas fa-shield-alt"></i> 95% vulns blocked</span>
+                            <span class="impact-badge"><i class="fas fa-signal"></i> 99.5% uptime</span>
+                        </div>
+                        <div class="tech-badges">
+                            <span class="tech-badge">OpenShift</span>
+                            <span class="tech-badge">Helm</span>
+                            <span class="tech-badge">Argo CD</span>
+                            <span class="tech-badge">GitLab CI</span>
+                            <span class="tech-badge">Trivy</span>
+                            <span class="tech-badge">SonarQube</span>
+                            <span class="tech-badge">Prometheus</span>
+                            <span class="tech-badge">Grafana</span>
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">Kubernetes</span>
+                        </div>
+                        <a href="https://gitlab.com/marzouguiahmed9/manifeste_sigrh" target="_blank" class="btn btn-outline-info btn-sm mt-3"><i class="fab fa-gitlab"></i> View Project</a>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="content d-flex align-items-center">
+                    <img src="images/SECOOPEC.jpeg" alt="SOCOOPEC" style="width:110px;height:110px;object-fit:cover;border-radius:16px;margin-right:1.25rem;box-shadow:0 4px 16px rgba(0,0,0,0.18);">
+                    <div>
+                        <h5 style="color:var(--accent);font-weight:800;margin:0;">DevOps Intern — SOCOOPEC</h5>
+                        <div class="xp-meta">Tunisia • Jun 2024 – Jul 2024</div>
+                        <ul style="margin-bottom:.5rem;">
+                            <li>Built a stock management app (Angular + Spring Boot, JWT, RBAC) covering core inventory and order workflows.</li>
+                            <li>Containerized and automated delivery with GitHub Actions → AWS EC2 behind Nginx; blue/green releases, deploy < 5 min, −80% manual ops.</li>
+                            <li>Improved runtime with Nginx caching/compression and logs/metrics; faster TTFB and simpler troubleshooting.</li>
+                        </ul>
+                        <div class="impact-badges">
+                            <span class="impact-badge"><i class="fas fa-stopwatch"></i> < 5 min deploy</span>
+                            <span class="impact-badge"><i class="fas fa-hands-helping"></i> −80% manual work</span>
+                            <span class="impact-badge"><i class="fas fa-rocket"></i> Faster TTFB</span>
+                        </div>
+                        <div class="tech-badges">
+                            <span class="tech-badge">Angular</span>
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">JWT</span>
+                            <span class="tech-badge">GitHub Actions</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">AWS EC2</span>
+                            <span class="tech-badge">Nginx</span>
+                        </div>
+                        <a href="https://github.com/MarzouguiAhmed9/SOCOOPEK-SN" target="_blank" class="btn btn-outline-success btn-sm mt-3"><i class="fab fa-github"></i> View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="divider"></div>
+<section id="education" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Education</h2>
+        <ul class="education-list">
+            <li>IT Infrastructure and Cloud Technology Engineering - Private Higher School of Engineering and Technologies (2022–Present)</li>
+            <li>Mathematics and Physics Preparatory Cycle - Higher Institute of Applied Sciences and Technology of Mahdia, Tunisia (2019–2022)</li>
+        </ul>
+    </div>
+</section>
+<div class="divider"></div>
+<section id="languages" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Languages</h2>
+        <ul class="languages-list">
+            <li>French (B2)</li>
+            <li>English (B2)</li>
+            <li>German (A2)</li>
+            <li>Arabic (C2)</li>
+        </ul>
+    </div>
+</section>
+<div class="divider"></div>
+<!-- New Certifications Section -->
+<section id="certifications" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Certifications</h2>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fab fa-aws"></i></div>
+                <div>
+                    <div class="cert-issuer">AMAZON WEB SERVICES</div>
+                    <div class="cert-title">AWS Academy Graduate – Cloud Foundations</div>
+                    <span class="cert-meta">Issued Nov 2024 • Expires Jan 2027</span>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Core Services</span>
+                        <span class="cert-tag">Architecture</span>
+                        <span class="cert-tag">Security</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+                <div>
+                    <div class="cert-issuer">CISCO</div>
+                    <div class="cert-title">CCNA: Switching, Routing & Wireless Essentials</div>
+                    <span class="cert-meta">Issued Sept 2024 • Expires Jul 2027</span>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Routing</span>
+                        <span class="cert-tag">Switching</span>
+                        <span class="cert-tag">Wireless</span>
+                        <span class="cert-tag">Networking</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fas fa-database"></i></div>
+                <div>
+                    <div class="cert-issuer">ORACLE</div>
+                    <div class="cert-title">OCI 2025 Foundations Associate (1Z0‑1085‑25)</div>
+                    <span class="cert-meta">Issued Jul 2025 • Expires Jul 2027</span>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Cloud Concepts</span>
+                        <span class="cert-tag">OCI Services</span>
+                        <span class="cert-tag">Governance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="divider"></div>
+<!-- New Workshops & Competitions Section -->
+<section id="workshops" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Workshops &amp; Competitions</h2>
+        <div class="workshop-grid">
+            <!-- AWS Community Day -->
+            <div class="workshop-card">
+                <!-- Replaced image with icon -->
+                <div class="workshop-icon">
+                    <i class="fab fa-aws" aria-hidden="true"></i>
+                </div>
+                <div class="workshop-body">
+                    <div class="workshop-title">AWS Community Day</div>
+                    <div class="workshop-meta">Community • Cloud Innovation</div>
+                    <p style="font-size:.9rem;line-height:1.4;">
+                        I’m honored to have been part of AWS Community Day Tunisia 2025 at Esprit School of Business, connecting with brilliant minds in the cloud ecosystem. Grateful for the insights, workshops, and discussions that deepened my understanding of AWS technologies.
+                    </p>
+                    <div class="workshop-tags">
+                        <span class="workshop-tag">Serverless</span>
+                        <span class="workshop-tag">Best Practices</span>
+                        <span class="workshop-tag">Architecture</span>
+                        <span class="workshop-tag">Security</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Bal Des Projets d'Esprit -->
+            <div class="workshop-card">
+                <!-- Replaced image with icon -->
+                <div class="workshop-icon">
+                    <i class="fas fa-award" aria-hidden="true"></i>
+                </div>
+                <div class="workshop-body">
+                    <div class="workshop-title">11ème Édition du Bal Des Projets d'Esprit</div>
+                    <div class="workshop-meta">Competition • Engineering Showcase</div>
+                    <p style="font-size:.9rem;line-height:1.4;">
+                        Honored to have been chosen to showcase our work at this year’s "Bal des Projets"—an amazing opportunity to present our work alongside talented peers.
+                        Project showcased: <strong>E-Flex Integrated Banking Platform</strong>, a modular digital banking solution enabling secure account management, transactional workflows and API-driven integration with external financial services.
+                    </p>
+                    <div class="workshop-tags">
+                        <span class="workshop-tag">Symfony</span>
+                        <span class="workshop-tag">Java</span>
+                        <span class="workshop-tag">PHP</span>
+                        <span class="workshop-tag">MySQL</span>
+                        <span class="workshop-tag">API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Removed placeholder image note since icons now used -->
+    </div>
+</section>
+<div class="divider"></div>
+<section id="contact" class="section">
+    <div class="container glass p-4">
+        <h2 class="section-title">Contact</h2>
+        <form class="contact-form">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Your Name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Your Email">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="3" placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Send</button>
+        </form>
+    </div>
+</section>
+<!-- Back to top button -->
+<button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+<footer class="footer">
+    <p>&copy; 2025 Ahmed Marzougui. All rights reserved.</p>
+    <a href="https://www.linkedin.com/in/ahmed-marzougui-cloud" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/MarzouguiAhmed9" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="mailto:ahmed.marzougui@esprit.tn"><i class="fas fa-envelope"></i></a>
+    <div class="mt-3">
+        <span class="visit-badge"><i class="fas fa-eye"></i> Visitors: <span id="visitorCount">--</span></span>
+    </div>
+</footer>
+<script>
+    // Smooth scrolling for navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if(this.hash) {
+                e.preventDefault();
+                document.querySelector(this.hash).scrollIntoView({behavior: 'smooth'});
+            }
+        });
+    });
+    // Contact form alert
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for reaching out! I will get back to you soon.');
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.animate-fadein').forEach(function(el) {
+            el.style.opacity = 1;
+        });
+    });
+    // Typewriter effect
+    (function() {
+        const el = document.getElementById('typewriter');
+        if(!el) return;
+        const words = ['Cloud', 'Automation', 'Security', 'Kubernetes', 'CI/CD', 'Terraform', 'AWS'];
+        let w = 0, i = 0, deleting = false;
+        function tick() {
+            const word = words[w];
+            el.textContent = deleting ? word.slice(0, i--) : word.slice(0, i++);
+            if(!deleting && i > word.length + 6) deleting = true;
+            if(deleting && i < 0) { deleting = false; w = (w + 1) % words.length; }
+            setTimeout(tick, deleting ? 60 : 110);
+        }
+        tick();
+    })();
+    // Reveal sections on scroll
+    (function() {
+        const observer = new IntersectionObserver((entries)=>{
+            entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); observer.unobserve(e.target);} });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.section').forEach(sec=>observer.observe(sec));
+    })();
+    // Scrollspy & navbar state
+    (function(){
+        const nav = document.querySelector('.navbar');
+        const links = Array.from(document.querySelectorAll('.navbar .nav-link'));
+        const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+        function onScroll(){
+            if(window.scrollY > 20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+            let idx = sections.findIndex((s,i)=> s.getBoundingClientRect().top <= 120 && (sections[i+1]? sections[i+1].getBoundingClientRect().top>120 : true));
+            if(idx === -1){ links.forEach(l=>l.classList.remove('active')); return; }
+            links.forEach((l,i)=> l.classList.toggle('active', i===idx));
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    })();
+    // Back to top visibility and behavior
+    (function(){
+        const btn = document.getElementById('backToTop');
+        if(!btn) return;
+        window.addEventListener('scroll', ()=>{ btn.style.display = window.scrollY > 300 ? 'inline-flex' : 'none'; }, { passive:true });
+        btn.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
+    })();
+    // Collapse mobile menu on click
+    (function(){
+        const navLinks = document.querySelectorAll('.navbar .nav-link');
+        const bsCollapse = document.getElementById('navbarNav');
+        navLinks.forEach(l => l.addEventListener('click', ()=>{
+            if(window.getComputedStyle(document.querySelector('.navbar-toggler')).display !== 'none'){
+                const collapse = bootstrap.Collapse.getOrCreateInstance(bsCollapse);
+                collapse.hide();
+            }
+        }));
+    })();
+    // Visitor counter (CountAPI)
+    (function(){
+        const el = document.getElementById('visitorCount');
+        if(!el) return;
+        const namespace = 'ahmedmarzougui_portfolio';
+        const key = 'site_visits';
+        fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+            .then(r=>r.json())
+            .then(d=>{ if(d && typeof d.value === 'number') el.textContent = d.value.toLocaleString(); })
+            .catch(()=>{
+                fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
+                    .then(r=>r.json())
+                    .then(d=>{ if(d && typeof d.value === 'number') el.textContent = d.value.toLocaleString(); else el.textContent='N/A'; })
+                    .catch(()=> el.textContent='N/A');
+            });
+    })();
+    // Project card reveal animation (added)
+    (function(){
+        const cards=[...document.querySelectorAll('#projects .project-card')];
+        if(!cards.length) return;
+        const obs=new IntersectionObserver(entries=>{
+            entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('reveal'); obs.unobserve(e.target);} });
+        },{threshold:.18});
+        cards.forEach(c=>obs.observe(c));
+    })();
+    // Project bullet collapse toggles
+    (function(){
+        document.querySelectorAll('#projects .toggle-project').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                const list=btn.previousElementSibling; // ul
+                if(!list || !list.classList.contains('proj-points')) return;
+                const collapsed=list.classList.toggle('collapsed');
+                btn.textContent = collapsed ? 'Read More' : 'Show Less';
+                btn.setAttribute('data-state', collapsed? 'collapsed':'expanded');
+            });
+        });
+    })();
+</script>
+</body>
+</html>
